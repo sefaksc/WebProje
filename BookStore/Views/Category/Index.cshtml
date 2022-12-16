@@ -1,0 +1,33 @@
+﻿@model List<Category>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Kategori Id
+            </th>
+            <th>
+                Kategori Ad
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var obj in Model)
+        {
+            <tr>
+                <td width="20%">
+                    @obj.Id
+                </td>
+                <td width="60%">
+                    @obj.Name
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
