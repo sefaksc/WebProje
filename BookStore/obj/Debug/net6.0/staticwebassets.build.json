@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4riEFJIqBxseW1jDWFSNaVUDres8IvOuwr4DswpW9nA=",
+  "Hash": "AOrKXm1SqkWmMxcXrP0eYpw06YZPsTJ3fM3RwjXfHjs=",
   "Source": "BookStore",
   "BasePath": "_content/BookStore",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\EXCALIBUR\\source\\repos\\BookStore\\BookStore\\wwwroot\\css\\Theme.css",
+      "SourceId": "BookStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\EXCALIBUR\\source\\repos\\BookStore\\BookStore\\wwwroot\\",
+      "BasePath": "_content/BookStore",
+      "RelativePath": "css/Theme.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Theme.css"
     },
     {
       "Identity": "C:\\Users\\EXCALIBUR\\source\\repos\\BookStore\\BookStore\\wwwroot\\favicon.ico",

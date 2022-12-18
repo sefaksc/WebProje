@@ -1,0 +1,31 @@
+﻿@model Category
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Kategori Ekle</h2>
+            <hr />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="CategoryNo">Kategori No</label>
+        <input asp-for="CategoryNo" class="form-control" />
+        <span asp-validation-for="CategoryNo" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Name">Kategori Ad</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-warning" style="width:150px">
+        Ekle
+    </button>
+    <a asp-controller="Category" asp-action="Index" class="btn btn-secondary" style="width:150px">
+        Listeye Geri Dön
+    </a>
+</form>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+}
