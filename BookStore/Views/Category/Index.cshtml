@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Index";
 }
-
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
@@ -41,7 +40,8 @@
                 </td>
                 <td>
                     <div class="w-75 btn-group" role="group">
-                            <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.CategoryNo"><i class="bi bi-pen"></i>Güncelle</a>
+                            <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-secondary"><i class="bi bi-pen"></i>Güncelle</a>
+                            <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger"><i class="bi bi-trash"></i>Sil</a>
                     </div>
                 </td>
             </tr>

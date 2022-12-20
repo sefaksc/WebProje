@@ -32,6 +32,7 @@ namespace BookStore.Controllers
             {
                 _db.Kategori.Add(kategori);
                 _db.SaveChanges();
+                TempData["success"] = "Kategori başarıyla oluşturuldu.";
                 return RedirectToAction("Index");
             }
             return View(kategori);
@@ -43,7 +44,7 @@ namespace BookStore.Controllers
             {
                 return NotFound();
             }
-            var categoryFromDb = _db.Kategori.FirstOrDefault(k => k.CategoryNo == id);
+            var categoryFromDb = _db.Kategori.FirstOrDefault(k => k.Id == id);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -58,9 +59,35 @@ namespace BookStore.Controllers
             {
                 _db.Kategori.Update(kategori);
                 _db.SaveChanges();
+                TempData["success"] = "Kategori başarıyla güncellendi.";
                 return RedirectToAction("Index");
             }
             return View(kategori);
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var categoryFromDb = _db.Kategori.FirstOrDefault(k => k.Id == id);
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDb);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePost(int? id)
+        {
+            var obj = _db.Kategori.Find(id);
+            _db.Kategori.Remove(obj);
+            _db.SaveChanges();
+            TempData["success"] = "Kategori başarıyla silindi.";
+            return RedirectToAction("Index");
+        
         }
     }
 }
