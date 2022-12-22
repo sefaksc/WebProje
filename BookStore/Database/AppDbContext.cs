@@ -10,6 +10,8 @@ namespace BookStore.Database
 
         }
 
-        public DbSet<Category> Kategori { get; set; } 
+        public DbSet<Category> Kategori { get; set; }
+
+        public DbSet<Product> Urunler { get; set; }
     }
 }

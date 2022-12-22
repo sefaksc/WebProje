@@ -3,15 +3,20 @@ using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 
-namespace BookStore.Controllers
+namespace BookStore.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly AppDbContext _db;
 
         public CategoryController(AppDbContext db)
         {
-            _db = db;   
+            _db = db;
+        }
+
+        public CategoryController()
+        {
         }
 
         public IActionResult Index()
@@ -21,7 +26,7 @@ namespace BookStore.Controllers
         }
         public IActionResult Create()
         {
-           
+
             return View();
         }
         [HttpPost]
@@ -40,7 +45,7 @@ namespace BookStore.Controllers
 
         public IActionResult Edit(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -87,7 +92,7 @@ namespace BookStore.Controllers
             _db.SaveChanges();
             TempData["success"] = "Kategori başarıyla silindi.";
             return RedirectToAction("Index");
-        
+
         }
     }
 }
