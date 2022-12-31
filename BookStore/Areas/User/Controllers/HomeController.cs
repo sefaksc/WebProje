@@ -1,4 +1,5 @@
-﻿using BookStore.Models;
+﻿using BookStore.Database;
+using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -8,15 +9,28 @@ namespace BookStore.Areas.User.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly AppDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,AppDbContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
         public IActionResult Index()
         {
-            return View();
+            List<Product> products = _db.Urunler.ToList();
+            return View(products);
+        }
+
+        public IActionResult Details(int id)
+        {
+            ShoppingCart cart = new()
+            {
+                count = 1,
+                product = _db.Urunler.FirstOrDefault(u => u.Id == id)
+            };
+            return View(cart);
         }
 
         public IActionResult Privacy()

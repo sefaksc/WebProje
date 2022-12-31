@@ -10,16 +10,18 @@ namespace BookStore.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly AppDbContext _db;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductController(AppDbContext db)
+        public ProductController(AppDbContext db, IWebHostEnvironment webHostEnvironment)
         {
             _db = db;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index()
         {
-            var CategoryList = _db.Kategori.ToList();
-            return View(CategoryList);
+            var UrunlerList = _db.Urunler.ToList();
+            return View(UrunlerList);
         }
 
         public IActionResult Upsert(int? id)
@@ -39,20 +41,52 @@ namespace BookStore.Areas.Admin.Controllers
             }
             else
             {
-
+                ViewBag.Kategoriler = CategoryList;
+                var urunfromdb = _db.Urunler.FirstOrDefault(k => k.Id == id);
+                return View(urunfromdb);
             }
-            
-            return View(urun);
+      
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Product urun, IFormFile file)
+        public IActionResult Upsert(Product urun, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
-                //_db.Kategori.Update(kategori);
+                string wwRootPath = _webHostEnvironment.WebRootPath;
+                if(file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString();
+                    var uploads = Path.Combine(wwRootPath, @"Images\Products");
+                    var extension = Path.GetExtension(file.FileName);
+
+                    if(urun.ImageUrl != null)
+                    {
+                        var oldImagePath = Path.Combine(wwRootPath, urun.ImageUrl.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+
+                    using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                    {
+                        file.CopyTo(fileStreams);
+                    }
+                    urun.ImageUrl = @"\Images\Products\" + fileName + extension;
+                }
+                if(urun.Id == 0)
+                {
+                    _db.Urunler.Add(urun);
+                    TempData["success"] = "Ürün başarıyla eklendi.";
+                }
+                else
+                {
+                    _db.Urunler.Update(urun);
+                    TempData["success"] = "Ürün başarıyla güncellendi.";
+                }
                 _db.SaveChanges();
-                TempData["success"] = "Kategori başarıyla güncellendi.";
+                
                 return RedirectToAction("Index");
             }
             return View(urun);
@@ -64,21 +98,26 @@ namespace BookStore.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var categoryFromDb = _db.Kategori.FirstOrDefault(k => k.Id == id);
-            if (categoryFromDb == null)
+            var urunFromDB = _db.Urunler.FirstOrDefault(k => k.Id == id);
+            if (urunFromDB == null)
             {
                 return NotFound();
             }
-            return View(categoryFromDb);
+            return View(urunFromDB);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeletePost(int? id)
+        public IActionResult DeletePOST(int? id)
         {
-            var obj = _db.Kategori.Find(id);
-            _db.Kategori.Remove(obj);
+            var obj = _db.Urunler.Find(id);
+            var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, obj.ImageUrl.TrimStart('\\'));
+            if (System.IO.File.Exists(oldImagePath))
+            {
+                System.IO.File.Delete(oldImagePath);
+            }
+            _db.Urunler.Remove(obj);
             _db.SaveChanges();
-            TempData["success"] = "Kategori başarıyla silindi.";
+            TempData["success"] = "Ürün başarıyla silindi.";
             return RedirectToAction("Index");
 
         }
