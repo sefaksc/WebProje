@@ -1,6 +1,7 @@
 ﻿using BookStore.Database;
 using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace BookStore.Areas.Admin.Controllers
@@ -20,50 +21,41 @@ namespace BookStore.Areas.Admin.Controllers
             var CategoryList = _db.Kategori.ToList();
             return View(CategoryList);
         }
-        public IActionResult Create()
-        {
 
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Category kategori)
+        public IActionResult Upsert(int? id)
         {
-            if (ModelState.IsValid)
-            {
-                _db.Kategori.Add(kategori);
-                _db.SaveChanges();
-                TempData["success"] = "Kategori başarıyla oluşturuldu.";
-                return RedirectToAction("Index");
-            }
-            return View(kategori);
-        }
+            Product urun = new Product();
+            IEnumerable<SelectListItem> CategoryList =_db.Kategori.ToList().Select(
+                u => new SelectListItem
+                {
+                    Text =u.Name,
+                    Value = u.Id.ToString(),    
+                });
 
-        public IActionResult Edit(int? id)
-        {
             if (id == null)
             {
-                return NotFound();
+                ViewBag.Kategoriler = CategoryList;
+                return View(urun);
             }
-            var categoryFromDb = _db.Kategori.FirstOrDefault(k => k.Id == id);
-            if (categoryFromDb == null)
+            else
             {
-                return NotFound();
+
             }
-            return View(categoryFromDb);
+            
+            return View(urun);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Category kategori)
+        public IActionResult Upsert(Product urun, IFormFile file)
         {
             if (ModelState.IsValid)
             {
-                _db.Kategori.Update(kategori);
+                //_db.Kategori.Update(kategori);
                 _db.SaveChanges();
                 TempData["success"] = "Kategori başarıyla güncellendi.";
                 return RedirectToAction("Index");
             }
-            return View(kategori);
+            return View(urun);
         }
 
         public IActionResult Delete(int? id)

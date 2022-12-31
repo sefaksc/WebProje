@@ -15,10 +15,6 @@ namespace BookStore.Areas.Admin.Controllers
             _db = db;
         }
 
-        public CategoryController()
-        {
-        }
-
         public IActionResult Index()
         {
             var CategoryList = _db.Kategori.ToList();
