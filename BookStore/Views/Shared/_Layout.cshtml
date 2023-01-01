@@ -31,9 +31,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-info" asp-area="Admin" asp-controller="Product" asp-action="Index">Ürünler</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="User" asp-controller="Cart" asp-action="Index">
+                                <i class="bi bi-basket2-fill" style="color:red"></i>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
+            <partial name="_LoginPartial"/>
         </nav>
     </header>
     <div class="container">

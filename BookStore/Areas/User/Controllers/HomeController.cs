@@ -1,7 +1,9 @@
 ﻿using BookStore.Database;
 using BookStore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace BookStore.Areas.User.Controllers
 {
@@ -23,14 +25,27 @@ namespace BookStore.Areas.User.Controllers
             return View(products);
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(int Productid)
         {
             ShoppingCart cart = new()
             {
                 count = 1,
-                product = _db.Urunler.FirstOrDefault(u => u.Id == id)
+                ProductId = Productid,
+                product = _db.Urunler.FirstOrDefault(u => u.Id == Productid)
             };
             return View(cart);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public IActionResult Details(ShoppingCart shoppingcart)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            shoppingcart.AppUserId = claim.Value;
+            _db.ShoppingCart.Add(shoppingcart);          
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()

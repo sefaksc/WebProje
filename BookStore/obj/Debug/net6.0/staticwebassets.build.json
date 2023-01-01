@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ai+fIrM+VkPh8Ap5G4P6g3f+kW8pPzg1XbycSyBx6cM=",
+  "Hash": "u7ECcbgl2PENjTpDxISQEFndx1J78PLLx975SdR5fAs=",
   "Source": "BookStore",
   "BasePath": "_content/BookStore",
   "Mode": "Default",
@@ -1137,6 +1137,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\Products\\5b49af35-4f3e-4d02-b6d0-bdfa51334ac8.png"
+    },
+    {
+      "Identity": "C:\\Users\\EXCALIBUR\\source\\repos\\BookStore\\BookStore\\wwwroot\\Images\\Products\\7d9fab2a-3a88-4cdd-b4af-ee4c01cc8335.png",
+      "SourceId": "BookStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\EXCALIBUR\\source\\repos\\BookStore\\BookStore\\wwwroot\\",
+      "BasePath": "_content/BookStore",
+      "RelativePath": "Images/Products/7d9fab2a-3a88-4cdd-b4af-ee4c01cc8335.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Products\\7d9fab2a-3a88-4cdd-b4af-ee4c01cc8335.png"
     },
     {
       "Identity": "C:\\Users\\EXCALIBUR\\source\\repos\\BookStore\\BookStore\\wwwroot\\js\\site.js",

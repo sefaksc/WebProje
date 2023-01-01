@@ -14,5 +14,9 @@ namespace BookStore.Database
         public DbSet<Category> Kategori { get; set; }
 
         public DbSet<Product> Urunler { get; set; }
+
+        public DbSet<AppUser> Users { get; set; }
+
+        public DbSet<ShoppingCart> ShoppingCart { get; set; }
     }
 }
